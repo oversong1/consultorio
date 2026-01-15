@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    /* "ESNext" faz com que o TypeScript gere o JavaScript mais atual possível, 
+       sem converter funcionalidades modernas para versões antigas. */
+    "target": "ESNext",
+    
+    "module": "commonjs",
+    "lib": ["esNext"], /* Também atualizamos a biblioteca para suportar os tipos mais novos */
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src/**/*"]
+}
