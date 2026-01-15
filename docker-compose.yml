@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # Banco de Dados MySQL
+  db:
+    image: mysql:8.0
+    container_name: med_schedule_db
+    restart: always
+    environment:
+      MYSQL_DATABASE: med_schedule
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  cache:
+    image: redis:alpine
+    container_name: med_schedule_cache
+    restart: always
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
