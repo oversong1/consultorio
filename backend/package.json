@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
-  "build": "tsc",
-  "start": "node dist/server.ts"
-},
+  "scripts": {
+    "dev": "npx ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -15,9 +15,13 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^5.2.1",
-    "mysql2": "^3.16.0",
+    "mysql2": "^3.16.1",
     "redis": "^5.10.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.28"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6"
   }
 }
