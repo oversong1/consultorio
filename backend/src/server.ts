@@ -1,7 +1,8 @@
 import "reflect-metadata"; // Necessário para o TypeORM lidar com decoradores
 import express, { Request, Response } from 'express';
 import cors from 'cors';
-import { AppDataSource } from "./databse/data-source";
+import { AppDataSource } from "./database/data-source";
+import { routes } from "./routes";
 
 const app = express();
 
@@ -10,6 +11,9 @@ app.use(cors());
 
 // Middleware para que o Express entenda corpo de requisições em formato JSON
 app.use(express.json());
+
+// Injeção das rotas da aplicação
+app.use(routes);
 
 // Inicializa o Banco de Dados
 AppDataSource.initialize()
