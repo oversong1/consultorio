@@ -1,6 +1,7 @@
 import "reflect-metadata"; // Necessário para o TypeORM lidar com decoradores
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import { AppDataSource } from "./databse/data-source";
 
 const app = express();
 
@@ -10,16 +11,12 @@ app.use(cors());
 // Middleware para que o Express entenda corpo de requisições em formato JSON
 app.use(express.json());
 
-/**
- * Rota de verificação de integridade (Health Check)
- * Utilizada para validar se a API está respondendo corretamente.
- */
-app.get('/', (req: Request, res: Response) => {
-  return res.json({ 
-    servico: "Home",
-    status: "operante",
-  });
-});
+// Inicializa o Banco de Dados
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Banco de Dados conectado com sucesso!");
+    })
+    .catch((error) => console.log("Erro na conexão com o banco:", error));
 
 app.get('/status', (req: Request, res: Response) => {
   return res.json({ 
