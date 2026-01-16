@@ -1,5 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
+import { User } from "./entities/User";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -8,9 +9,9 @@ export const AppDataSource = new DataSource({
     username: "root",
     password: "root", 
     database: "med_schedule",
-    synchronize: true, // Isso cria as tabelas automaticamente (usar apenas em dev)
+    synchronize: true,
     logging: true,
-    entities: [], 
+    entities: [User], 
     migrations: [],
     subscribers: [],
 });
