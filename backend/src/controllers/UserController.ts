@@ -1,34 +1,36 @@
 import { Request, Response } from "express";
 import { userRepository } from "../repositories/UserRepository";
+import { hash } from "bcryptjs"; // Importa a função de criptografia
 
 export class UserController {
-    /**
-     * Método responsável pela criação de um novo usuário.
-     * Recebe os dados da requisição, valida a existência e persiste no banco.
-     */
     async create(req: Request, res: Response) {
-        // Desestrutura os dados enviados no corpo (body) da requisição
         const { name, email, password } = req.body;
 
-        // Verifica no banco de dados se já existe um usuário com o e-mail informado
         const userExists = await userRepository.findOneBy({ email });
 
-        // Se o usuário existir, retorna erro 400 (Bad Request) para interromper a criação
         if (userExists) {
             return res.status(400).json({ message: "Usuário já existe" });
         }
 
-        // Prepara a instância do novo usuário (ainda não salva no banco aqui)
+        // Criptografia: O '8' é o "salt", nível de segurança do hash
+        const hashedPassword = await hash(password, 8);
+
         const newUser = userRepository.create({
             name,
             email,
-            password
+            password: hashedPassword // Salva a senha criptografada
         });
 
-        // Efetiva a gravação do novo usuário na tabela do banco de dados
         await userRepository.save(newUser);
 
-        // Retorna o status 201 (Created) e o objeto do usuário recém-criado
-        return res.status(201).json(newUser);
+        // Remove a senha do objeto de retorno por segurança
+        const userResponse = {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            created_at: newUser.created_at
+        };
+
+        return res.status(201).json(userResponse);
     }
 }
