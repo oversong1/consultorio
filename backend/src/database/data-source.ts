@@ -9,9 +9,13 @@ export const AppDataSource = new DataSource({
     username: "root",
     password: "root", 
     database: "med_schedule",
-    synchronize: true,
+    synchronize: false, // Recomendado usar false quando se usa migrations
     logging: true,
     entities: [User], 
-    migrations: [],
+    /**
+     * Adicionamos o caminho para encontrar todos os arquivos .ts 
+     * dentro da pasta migrations.
+     */
+    migrations: ["./src/database/migrations/*.ts"],
     subscribers: [],
 });

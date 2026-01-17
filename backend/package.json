@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+"scripts": {
     "dev": "npx ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "typeorm": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts",
     "build": "tsc",
     "start": "node dist/server.ts"
-  },
+},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
-    "@types/express": "^5.0.6"
+    "@types/express": "^5.0.6",
+    "ts-node": "^10.9.2"
   }
 }
