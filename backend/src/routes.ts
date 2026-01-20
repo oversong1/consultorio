@@ -1,22 +1,17 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { AuthController } from "./controllers/AuthController";
+import { CreateDoctorController } from "./controllers/CreateDoctorController";
 import { authMiddleware } from "./middlewares/authMiddleware";
 
 const routes = Router();
 
-/**
- * Definição da rota de criação de usuário:
- * Método: POST
- * Caminho: /users
- * Ação: Chama o método 'create' da classe 'UserController'
- */
-routes.post("/users", new UserController().create); // rota de criação 
-routes.post("/login", new AuthController().authenticate); // rota de login
+routes.post("/users", new UserController().create);
+routes.post("/login", new AuthController().authenticate);
 
+// Rota para cadastrar médico (Protegida)
+routes.post("/doctors", authMiddleware, new CreateDoctorController().handle);
 
-// Rota protegida: apenas usuários logados (com token) podem acessar
-// Vamos criar um exemplo de rota que retorna o status do próprio usuário
 routes.get("/profile", authMiddleware, (req, res) => {
     return res.json({ userId: req.userId });
 });
