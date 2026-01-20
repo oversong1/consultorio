@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { UserController } from "./controllers/UserController";
 import { AuthController } from "./controllers/AuthController";
-import { DoctorController } from "./controllers/DoctorController"; 
+import { DoctorController } from "./controllers/DoctorController";
+import { ExamController } from "./controllers/ExamController"; 
 import { authMiddleware } from "./middlewares/authMiddleware";
 
 const routes = Router();
 const doctorController = new DoctorController(); // Instância única
+const examController = new ExamController();
 
 routes.post("/users", new UserController().create);
 routes.post("/login", new AuthController().authenticate);
@@ -16,6 +18,12 @@ routes.get("/doctors", authMiddleware, doctorController.list);
 routes.get("/doctors/:id", authMiddleware, doctorController.show);// Rota para ver detalhes de um médico específico
 routes.put("/doctors/:id", authMiddleware, doctorController.update);
 routes.delete("/doctors/:id", authMiddleware, doctorController.delete);
+
+// Gerenciamento de Exames
+routes.post("/exams", authMiddleware, examController.create);
+routes.get("/exams", authMiddleware, examController.list);
+routes.get("/exams/:id", authMiddleware, examController.show);
+routes.delete("/exams/:id", authMiddleware, examController.delete);
 
 routes.get("/profile", authMiddleware, (req, res) => {
     return res.json({ userId: req.userId });
