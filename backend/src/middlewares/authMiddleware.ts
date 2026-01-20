@@ -28,7 +28,8 @@ export function authMiddleware(
 
         // 5. Se for válido, extrai o ID e injeta na requisição para uso futuro
         const { id } = data as TokenPayload;
-        req.userId = id;
+        // req.userId = id;
+        req.user = { id };
 
         // 6. Autoriza a continuação para o próximo passo (Controller)
         return next();
