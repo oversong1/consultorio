@@ -2,22 +2,18 @@ import { useEffect, useState, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../hooks/useAuth';
 import { useAppointments } from '../hooks/useAppointments';
-import api from '../services/api'; 
+import { useExams } from '../hooks/useExams'; // Hook importado
 import type { AppointmentDTO, Appointment } from '../services/appointments';
-
-interface Exam {
-  id: string;
-  name: string;
-  specialty: string;
-}
+import { ExamManager } from '../components/ExamManager';
 
 export function Dashboard() {
   const { signOut, user } = useAuth();
-  const [exams, setExams] = useState<Exam[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
-  // Estado para controlar se estamos editando um agendamento existente
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
+  const [isExamModalOpen, setIsExamModalOpen] = useState(false);
+
+  // Hook de exames fornecendo os dados e a função de busca
+  const { exams, fetchExams } = useExams();
 
   const { 
     appointments, 
@@ -37,18 +33,13 @@ export function Dashboard() {
 
   useEffect(() => {
     fetchAppointments();
-    
-    api.get('/exams')
-      .then(response => setExams(response.data))
-      .catch(err => console.error("Erro ao carregar exames:", err));
-  }, [fetchAppointments]);
+    fetchExams(); // Agora usa a função do hook
+  }, [fetchAppointments, fetchExams]);
 
-  // Função para abrir o modal em modo de edição
   function handleEditClick(appointment: Appointment) {
     setEditingAppointment(appointment);
     setIsModalOpen(true);
     
-    // Preenche o formulário com os dados atuais
     reset({
       appointment_date: new Date(appointment.appointment_date).toISOString().slice(0, 16),
       exam_id: appointment.exam_id,
@@ -56,7 +47,6 @@ export function Dashboard() {
     });
   }
 
-  // Função para fechar o modal e limpar o estado de edição
   function handleCloseModal() {
     setIsModalOpen(false);
     setEditingAppointment(null);
@@ -77,17 +67,12 @@ export function Dashboard() {
         await saveAppointment(data);
       }
 
-      setIsModalOpen(false);
-      setEditingAppointment(null);
-      reset();
+      handleCloseModal(); 
       alert('Salvo com sucesso!');
     } catch (err: unknown) {
-      // Tratando o erro de forma segura para o TypeScript
       console.error("Erro ao salvar:", err);
-      
       let errorMessage = "Erro ao processar requisição.";
       
-      // Verifica se o erro veio do Axios e tem uma mensagem da API
       if (err && typeof err === 'object' && 'response' in err) {
         const axiosError = err as { response: { data: { error?: string, message?: string } } };
         errorMessage = axiosError.response.data.error || axiosError.response.data.message || errorMessage;
@@ -112,15 +97,23 @@ export function Dashboard() {
       </nav>
 
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <h2 className="text-2xl font-bold text-gray-800">Meus Agendamentos</h2>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h2 className="text-2xl font-bold text-gray-800">Meus Agendamentos</h2>
+        <div className="flex gap-3">
+          <button 
+            onClick={() => setIsExamModalOpen(true)}
+            className="bg-gray-800 text-white px-6 py-2.5 rounded-lg hover:bg-gray-900 transition-all shadow-md font-semibold text-sm"
+          >
+            ⚙️ Tipos de Exames
+          </button>
           <button 
             onClick={() => setIsModalOpen(true)}
-            className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all shadow-md active:scale-95 font-semibold"
+            className="bg-blue-600 text-white px-6 py-2.5 rounded-lg hover:bg-blue-700 transition-all shadow-md font-semibold text-sm"
           >
             + Novo Agendamento
           </button>
         </div>
+      </div>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center py-20 text-gray-500">
@@ -164,7 +157,10 @@ export function Dashboard() {
                             Editar
                           </button>
                           <button 
-                            onClick={() => removeAppointment(appointment.id)}
+                            onClick={() => {
+                                if(window.confirm("Deseja realmente cancelar?")) 
+                                    removeAppointment(appointment.id)
+                            }}
                             className="text-red-500 hover:text-red-700 px-3 py-1 rounded-md hover:bg-red-50 transition-all"
                           >
                             Cancelar
@@ -179,7 +175,15 @@ export function Dashboard() {
           </div>
         )}
 
-        {/* Modal de Cadastro / Edição */}
+        {/* No final do JSX */}
+        <ExamManager 
+          isOpen={isExamModalOpen} 
+          onClose={() => {
+            setIsExamModalOpen(false);
+            fetchExams(); // <--- Isso aqui no Dashboard mata o problema do F5
+          }} 
+        />
+
         {isModalOpen && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={handleCloseModal} />
