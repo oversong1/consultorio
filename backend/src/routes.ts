@@ -30,6 +30,7 @@ routes.delete("/exams/:id", authMiddleware, examController.delete);
 // Agendamento de Exames
 routes.post("/appointments", authMiddleware, appointmentController.create);
 routes.get("/appointments", authMiddleware, appointmentController.list);
+routes.put("/appointments/:id", authMiddleware, appointmentController.update);
 routes.delete("/appointments/:id", authMiddleware, appointmentController.delete);
 
 routes.get("/profile", authMiddleware, (req, res) => {
