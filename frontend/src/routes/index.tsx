@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import { Login } from '../pages/Login';
+import { Dashboard } from '../pages/Dashboard';
 
 // Simulando componentes de página (vamos criá-los logo em seguida)
 // const Login = () => <div>Página de Login</div>;
-const Dashboard = () => <div>Página de Dashboard (Logado!)</div>;
+// const Dashboard = () => <div>Página de Dashboard (Logado!)</div>;
 
 export function AppRoutes() {
   const { signed } = useAuth();
