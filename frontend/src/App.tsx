@@ -1,9 +1,9 @@
+import { AppRoutes } from './routes';
+
 function App() {
   return (
-    <div>
-      <h1>MedSchedule Iniciado</h1>
-    </div>
-  )
+    <AppRoutes />
+  );
 }
 
-export default App
+export default App;
