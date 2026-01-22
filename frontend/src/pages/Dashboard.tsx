@@ -57,30 +57,45 @@ export function Dashboard() {
     });
   }
 
-  const handleSave = async (data: AppointmentDTO) => {
-    try {
-      const id = editingAppointment?.id;
+const handleSave = async (data: AppointmentDTO) => {
+  // 1. VERIFICAÇÃO DE CONFLITO:
+  // Procuramos na lista atual se existe algum agendamento (diferente do que estamos editando)
+  // que tenha a mesma data e hora exata.
+  const hasConflict = appointments.some(app => {
+    const isSameDate = new Date(app.appointment_date).getTime() === new Date(data.appointment_date).getTime();
+    const isNotSameAppointment = app.id !== editingAppointment?.id;
+    return isSameDate && isNotSameAppointment;
+  });
 
-      if (id) {
-        await saveAppointment(data, id);
-      } else {
-        await saveAppointment(data);
-      }
+  if (hasConflict) {
+    alert('⚠️ Este horário já está ocupado por outro agendamento!');
+    return; // Interrompe a função aqui e não salva
+  }
 
-      handleCloseModal(); 
-      alert('Salvo com sucesso!');
-    } catch (err: unknown) {
-      console.error("Erro ao salvar:", err);
-      let errorMessage = "Erro ao processar requisição.";
-      
-      if (err && typeof err === 'object' && 'response' in err) {
-        const axiosError = err as { response: { data: { error?: string, message?: string } } };
-        errorMessage = axiosError.response.data.error || axiosError.response.data.message || errorMessage;
-      }
-      
-      alert(`Erro: ${errorMessage}`);
+  // 2. FLUXO NORMAL DE SALVAMENTO:
+  try {
+    const id = editingAppointment?.id;
+
+    if (id) {
+      await saveAppointment(data, id);
+    } else {
+      await saveAppointment(data);
     }
-  };
+
+    handleCloseModal(); 
+    alert('Salvo com sucesso!');
+  } catch (err: unknown) {
+    console.error("Erro ao salvar:", err);
+    let errorMessage = "Erro ao processar requisição.";
+    
+    if (err && typeof err === 'object' && 'response' in err) {
+      const axiosError = err as { response: { data: { error?: string, message?: string } } };
+      errorMessage = axiosError.response.data.error || axiosError.response.data.message || errorMessage;
+    }
+    
+    alert(`Erro: ${errorMessage}`);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -135,14 +150,29 @@ export function Dashboard() {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {appointments.map((appointment) => {
                     const exam = exams.find(e => e.id === appointment.exam_id);
+                    // LOGICA PARA STATUS: Verifica se a data do agendamento é menor que agora
+                    const isPast = new Date(appointment.appointment_date) < new Date();
                     return (
-                      <tr key={appointment.id} className="hover:bg-blue-50/30 transition-colors">
+                      <tr 
+                        key={appointment.id} 
+                        className={`transition-colors ${isPast ? 'bg-gray-50 opacity-60' : 'hover:bg-blue-50/30'}`}
+                      >
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-semibold">
-                          {new Date(appointment.appointment_date).toLocaleString('pt-BR')}
+                          <div className="flex flex-col">
+                            {new Date(appointment.appointment_date).toLocaleString('pt-BR')}
+                            {/* Badge de Status */}
+                            {isPast ? (
+                              <span className="text-[10px] font-bold text-gray-400 uppercase mt-1">● Concluído</span>
+                            ) : (
+                              <span className="text-[10px] font-bold text-green-500 uppercase mt-1">● Agendado</span>
+                            )}
+                          </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                           <div className="flex flex-col">
-                            <span className="font-medium text-gray-800">{exam?.name || 'Exame não encontrado'}</span>
+                            <span className={`font-medium ${isPast ? 'text-gray-500' : 'text-gray-800'}`}>
+                              {exam?.name || 'Exame não encontrado'}
+                            </span>
                             <span className="text-xs text-gray-400">{exam?.specialty}</span>
                           </div>
                         </td>
@@ -150,12 +180,15 @@ export function Dashboard() {
                           {appointment.observations || 'Nenhuma observação'}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                          <button 
-                            onClick={() => handleEditClick(appointment)}
-                            className="text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md hover:bg-blue-50 transition-all"
-                          >
-                            Editar
-                          </button>
+                          {/* Se o exame passou, podemos esconder o botão editar ou mantê-lo */}
+                          {!isPast && (
+                            <button 
+                              onClick={() => handleEditClick(appointment)}
+                              className="text-blue-600 hover:text-blue-800 px-3 py-1 rounded-md hover:bg-blue-50 transition-all"
+                            >
+                              Editar
+                            </button>
+                          )}
                           <button 
                             onClick={() => {
                                 if(window.confirm("Deseja realmente cancelar?")) 
@@ -163,7 +196,7 @@ export function Dashboard() {
                             }}
                             className="text-red-500 hover:text-red-700 px-3 py-1 rounded-md hover:bg-red-50 transition-all"
                           >
-                            Cancelar
+                            {isPast ? 'Remover Histórico' : 'Cancelar'}
                           </button>
                         </td>
                       </tr>
