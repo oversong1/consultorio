@@ -1,0 +1,35 @@
+
+Agora vamos cuidar da parte de exames criando a entity "src/database/entities/Exam.ts"
+
+Sempre depois de criar um entity vamos ter que passar ela no "src/database/data-source.ts"
+Atualização do arquivo "data-source.ts"
+import { Exam } from "./entities/Exam";
+entities: [User, Doctor, Exam],
+
+Agora vamos novamente criar o Service "src/services/ExamService.ts"
+
+Vamos ter que fazer tambem um controller "src/controllers/ExamController.ts"
+
+Por fim vamos atualizar "src/routes.ts"
+
+==========================================================================
+RESUMO DA ETAPA - GERENCIAMENTO DE EXAMES (EXAM)
+==========================================================================
+
+1. DESENVOLVIMENTO DA ENTIDADE:
+- Criado o arquivo 'src/database/entities/Exam.ts'.
+- Mapeada a tabela 'exams' com campos: id (UUID), name e specialty.
+- Entidade registrada no 'data-source.ts' para sincronização com o banco.
+
+2. LOGICA DE NEGOCIO (CRUD):
+- Implementado 'ExamService.ts' com métodos para criar, listar todos 
+  e buscar detalhes de um exame específico por ID.
+- Implementado 'ExamController.ts' para processar as requisições de 
+  catálogo de exames.
+
+3. INTEGRACAO DE ROTAS:
+- Criadas rotas protegidas (/exams) para garantir que apenas usuários 
+  autenticados gerenciem ou visualizem o catálogo de exames.
+- Cumprido o Requisito Funcional 1: "Gerenciamento de Exames".
+
+==========================================================================

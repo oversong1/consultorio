@@ -1,0 +1,36 @@
+==========================================================================
+STATUS DO PROJETO: BACKEND INICIALIZADO
+==========================================================================
+
+LOCALIZAÇÃO: /med-schedule-challenge/backend
+
+ARQUIVOS CRIADOS:
+- package.json: Contém a lista de bibliotecas e scripts de execução.
+- node_modules: Pasta criada automaticamente com o código das bibliotecas.
+- tsconfig.json: Configurações do compilador TypeScript.
+
+PRÓXIMA AÇÃO:
+- Criar a pasta /src e o arquivo server.ts para testar se tudo liga.
+
+COMMIT SUGERIDO:
+- git add .
+- git commit -m "feat(backend): instalacao de dependencias e configuracao typescript"
+==========================================================================
+
+Documentação Base
+Vamos iniciar o projeto na pasta back-end
+
+Inicialize o projeto Node.js -> "npm init -y"
+Instalando as Dependências -> "npm install express typeorm mysql2 redis cors reflect-metadata"
+
+"OBS"
+(Ferramentas apenas para desenvolver o projeto e usarmos durante a criação):
+"npm install -D typescript @types/node @types/express @types/cors ts-node-dev"
+
+Vamos criar e configurar o arquivo "tsconfig.json"
+Ajustando o "package.json"
+Fazer commit novamente
+
+
+
+

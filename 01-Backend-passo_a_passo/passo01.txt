@@ -1,0 +1,9 @@
+
+
+Documentação Base
+
+Criamos uma pasta raiz e dentro dela inicialmos um arquivo git "git init"
+Vamos criar 2 pastas um para o front e outra para o back
+Na raiz do projeto criamos um arquivo docker compose com as configurações que precisamos
+Criação do arquivo README.md e colocando as informações nele para rodar o dockers
+Fazendo o primeiro commit (git add.) , (git commit -m "configuração inicial da estrutura e infraestrutura com docker")

@@ -1,0 +1,44 @@
+
+
+Agora vamos criar uma tabela com o Migration então na pasta "Backend" vamos rodar o seguinte comando
+Comando : "npx typeorm migration:create ./src/database/migrations/CreateDoctors"
+
+Depois no arquivo "./src/database/migrations/CreateDoctors" temos que criar a tabela e as colunas
+
+OBS: Vamos rodar esses comandos na pasta Backend
+Primeiro vamos ajustar o nosso packge.json inserindo ("typeorm": "typeorm-ts-node-commonjs -d ./src/database/data-source.ts",), na parte do "scripts"
+logo abaixo do "dev" isso vai fazer o proximo comando ser reconhecido
+
+Agora vamos instalar o "ts-node" para ele reconhecer comando TypeORM e tudo isso na pasta do "Backend"
+Comando : "npm install -D ts-node"
+
+Vamos ajustar o arquivo "src/database/data-source.ts"
+
+OBS:Depois da linha("med_schedule",)
+Vamos adicionar essa linha: 
+"synchronize: false, // Recomendado usar false quando se usa migrations"
+
+OBS:Depois da linha("entities:[User]",)
+Vamos adicionar essa linha: 
+"migrations: ["./src/database/migrations/*.ts"],"
+
+
+E por fim rodar a migração "npm run typeorm migration:run"
+
+
+==========================================================================
+RESUMO DA ETAPA - ESTRUTURA DE BANCO (DOCTORS)
+==========================================================================
+
+1. CONFIGURACAO TECNICA:
+- Instalado 'ts-node' para execucao de scripts TypeORM.
+- Adicionado script "typeorm" no package.json apontando para o DataSource.
+- Atualizado 'src/database/data-source.ts' para reconhecer a pasta de migrations.
+
+2. BANCO DE DADOS:
+- Criada a migration 'CreateDoctors'.
+- Executado o comando 'migration:run' com sucesso.
+- Tabela 'doctors' criada com campos: id (UUID), name, crm (Unique), email (Unique), 
+  specialty e created_at.
+
+==========================================================================

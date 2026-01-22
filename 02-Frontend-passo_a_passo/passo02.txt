@@ -1,0 +1,39 @@
+
+
+Agora que a estrutura inicial esta pronta vamos começar com os arquivos
+
+Primeiro vamos iniciarcom a api e como pegar ou consumo dela criando o arquivo "src/services/api.ts" e configurando ele
+
+Depois vamos usar o Context API para gerenciar tudo mas nesse caso vamos ter que criar 2 aqruivo para fazer o gerencimento do context em virtude o Linter
+"src/contexts/AuthContext.ts" e o "src/contexts/AuthProvider.tsx" 
+
+Vamos envolver o componente <App /> com o nosso <AuthProvider>. 
+Isso garante que qualquer tela que a gente criar daqui para frente saiba se o usuário está logado ou não. "src/main.tsx"
+
+Vamos criar um novo arquivo "src/hooks/useAuth.ts" e com isso vamos fica mais facil a autenticação e segurança.
+
+
+==========================================================================
+DOCUMENTAÇÃO: INTEGRAÇÃO DE API E GERENCIAMENTO DE ESTADO
+==========================================================================
+
+1. COMUNICAÇÃO (API):
+- Configuração do Axios em src/services/api.ts.
+- Implementação de interceptors para injeção automática do Token JWT (Bearer) 
+  em todas as requisições, recuperando o valor do localStorage.
+
+2. ESTADO GLOBAL (CONTEXT API):
+- Criação do AuthContext.ts para definição de contratos e tipagens de usuário.
+- Implementação do AuthProvider.tsx para gerenciar o estado de autenticação.
+- Lógica de persistência de sessão: ao carregar a aplicação, o estado é 
+  sincronizado com os dados salvos no navegador.
+- Otimização de performance com useMemo e useCallback para evitar re-renders.
+- Tratamento de "cascading renders" para conformidade com React 19+.
+
+3. FACILITADORES (HOOKS):
+- Criação do hook customizado useAuth.ts para abstrair o consumo do contexto, 
+  garantindo tipagem forte e validação de escopo.
+
+4. INJEÇÃO GLOBAL:
+- Configuração do entry-point (main.tsx) injetando o Provider no topo da árvore.
+==========================================================================

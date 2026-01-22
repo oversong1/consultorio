@@ -1,0 +1,46 @@
+
+Agora que ja iniciomos com a parte do Context vamos ajustar as rotas
+
+Vamos em criar nosso arquivo "src/routes/index.tsx" e criar as rotas com React "router"
+
+Com isso ja podemos ajustar nosso arquivo principal "src/App.tsx" e colocar o routes.
+
+Agora vamos iniciar a pagina de Login e vamos usar validação com hook form
+Comando: "npm install react-hook-form"
+
+Criar a pagina "src/pages/Login.tsx" vamos dentro dela import tanto o Auth como o Form e interface.
+
+Ajustar pagina de Rotas "src/routes/index.tsx"
+Ajustes
+import { Login } from '../pages/Login';
+
+
+
+==========================================================================
+DOCUMENTAÇÃO: ROTEAMENTO, AUTENTICAÇÃO E DASHBOARD
+==========================================================================
+
+1. NAVEGAÇÃO E ROTAS (REACT ROUTER DOM):
+- Implementação de AppRoutes em src/routes/index.tsx.
+- Lógica de redirecionamento inteligente: usuários logados são impedidos de 
+  acessar o Login, e visitantes são impedidos de acessar a Dashboard.
+- Centralização da lógica de proteção de rotas baseada no estado 'signed'.
+
+2. INTERFACE DE ACESSO (LOGIN):
+- Construção da UI com Tailwind CSS focada em responsividade e UX.
+- Integração do react-hook-form para captura e validação de dados.
+- Tipagem estrita de formulário (LoginFormData) eliminando o uso de 'any'.
+- Fluxo completo de sign-in: envio de dados -> API -> Contexto -> Redirecionamento.
+
+3. PAINEL ADMINISTRATIVO (DASHBOARD):
+- Layout de Dashboard com Header persistente e área de conteúdo.
+- Consumo de dados dinâmicos: integração com a rota GET /appointments.
+- Tratamento de estados: loading spinner, exibição de lista e feedback de 
+  lista vazia.
+- Formatação de dados brutos (ISO Dates) para o padrão pt-BR.
+
+4. GERENCIAMENTO DE SESSÃO:
+- Implementação da funcionalidade de SignOut integrada ao Header.
+- Persistência reativa: a interface reage imediatamente à remoção do 
+  token no localStorage via estado global.
+==========================================================================

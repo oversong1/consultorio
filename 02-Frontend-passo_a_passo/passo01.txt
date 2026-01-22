@@ -1,0 +1,74 @@
+
+ESTRUTURA INICIAL
+
+Vamos inciar Front-End com "React", "TypeScript", "Vite", "Tailwind", "Lucide", "Axios"
+
+Instação Dependencia React, TypeScript
+Comando: "npm create vite@latest frontend -- --template react-ts"
+
+Instação dentro da pasta frontend Dependencia Axios, Router, Lucide
+Comando 02:
+"
+npm install
+npm install axios react-router-dom lucide-react
+"
+
+
+Instação Dependencia Tailwind versão 4, essa versão tem a instalação diferente da 3(tomar cuidado)
+Comando 03:
+"
+npm install @tailwindcss/vite
+"
+Depois de instalar o Tailwind vamos abrir o arquivo "vite.config.ts" e vamos adicionar o seguinte
+"
+import tailwindcss from '@tailwindcss/vite' // Import do plugin
+tailwindcss(), 
+"
+e pra finalizar no arquivo "src/index.css" deixar zerado somente com o import do Tailwind
+"
+@import "tailwindcss";
+
+body {
+  background-color: #f3f4f6; /* um cinza claro para testar */
+}
+"
+
+Criação de pastas par o projeto Se for necessario algum outra faremos durante o processo do FRONT
+frontend/
+├── src/
+│   ├── @types/          # Definições de tipos TypeScript
+│   ├── assets/          # Imagens, logos e ícones
+│   ├── components/      # Componentes globais (Button, Input, Navbar)
+│   ├── contexts/        # Gerenciamento de estado (AuthContext)
+│   ├── hooks/           # hooks personalizados (ex: useAuth)
+│   ├── pages/           # Telas completas (Login, Dashboard, Register)
+│   ├── routes/          # Configuração das rotas (Rotas públicas/privadas)
+│   ├── services/        # Configuração da API (Axios)
+│   ├── App.tsx          # Componente principal
+│   ├── index.css        # Css principal
+│   └── main.tsx         # Ponto de entrada
+
+==========================================================================
+DOCUMENTAÇÃO: INICIALIZAÇÃO DO FRONT-END
+==========================================================================
+
+1. SETUP TECNOLÓGICO:
+- Inicialização do projeto utilizando Vite com o template React + TypeScript.
+- Configuração do Tailwind CSS v4 através do plugin oficial para Vite (@tailwindcss/vite).
+
+2. LIMPEZA E PADRONIZAÇÃO:
+- Remoção de arquivos de estilo redundantes (App.css) e ativos de exemplo.
+- Reset dos arquivos App.tsx e main.tsx para um estado inicial limpo.
+- Configuração do ponto de entrada global de CSS (index.css) com a diretiva @import do Tailwind v4.
+
+3. ARQUITETURA DE DIRETÓRIOS:
+- Criação da estrutura de pastas para organização do código:
+  - @types: Definições de tipos globais.
+  - components: Componentes de interface reutilizáveis.
+  - contexts: Provedores de estado global (Context API).
+  - hooks: Hooks personalizados para lógica de negócio.
+  - pages: Componentes de rota (telas da aplicação).
+  - routes: Gerenciamento de navegação.
+  - services: Configurações de consumo de API (Axios).
+
+==========================================================================

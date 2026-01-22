@@ -1,0 +1,30 @@
+
+Vamos montar o dashboard para quando fizermos login
+
+Vamos criar o arquivo "src/pages/Dashboard.tsx" novamente usando tailwind
+
+Depois vamo justar o arquivo de rotas "src/routes/index.tsx"
+atualização: import { Dashboard } from '../pages/Dashboard';
+
+
+
+==========================================================================
+DOCUMENTAÇÃO: DASHBOARD REAL E INTEGRAÇÃO COM MYSQL
+==========================================================================
+
+1. MAPEAMENTO DE DADOS (DATABASE SYNC):
+- Sincronização da interface Appointment com a estrutura real do MySQL:
+  * Campos: id, appointment_date, observations, exam_id, user_id.
+- Ajuste de tipagem para suportar campos nulos (observations).
+
+2. DASHBOARD FUNCIONAL:
+- Implementação de useEffect para busca automática de agendamentos.
+- Renderização dinâmica da tabela utilizando os nomes de coluna do banco.
+- Formatação de data/hora (appointment_date) para o local pt-BR.
+- Feedback visual de "loading" e tratamento de lista para um ou mais registros.
+
+3. ESTILO E UX:
+- Layout responsivo com Tailwind CSS.
+- Exibição dinâmica do nome do usuário logado no Header.
+- Sistema de SignOut funcional com redirecionamento automático.
+==========================================================================

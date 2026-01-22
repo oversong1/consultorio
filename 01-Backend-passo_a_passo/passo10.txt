@@ -1,0 +1,29 @@
+
+
+Agora que a tabela existe no banco para conseguir manipular precisamos transformar em Entity
+
+Vamos criar a entities "src/database/entities/Doctor.ts"
+vamos criar o script para @Entity("doctors")
+
+Depois vamos ajustar o awrquivo "src/database/data-source.ts"
+Vamos importar (import { Doctor } from "./entities/Doctor";)
+Atualizar (entities: [User, Doctor],)
+
+
+
+==========================================================================
+RESUMO DA ETAPA - MAPEAMENTO DE ENTIDADE (DOCTOR)
+==========================================================================
+
+1. DESENVOLVIMENTO:
+- Criado o arquivo 'src/database/entities/Doctor.ts'.
+- Implementado o mapeamento Objeto-Relacional (ORM) para a tabela 'doctors'.
+- Utilizada a asserção definitiva (!) para satisfazer as regras do TypeScript
+  sem a necessidade de um construtor manual.
+
+2. INTEGRACAO:
+- A entidade 'Doctor' foi importada e adicionada ao arquivo 'data-source.ts'.
+- O backend agora reconhece a tabela 'doctors' e esta pronto para operacoes 
+  de CRUD (Criar, Ler, Atualizar, Deletar).
+
+==========================================================================

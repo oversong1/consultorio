@@ -1,0 +1,33 @@
+
+
+
+Vamos continuar com o trabalho no back-end
+
+Criar pasta "src" com o arquivo "server.ts"
+Criar script com "reflect", "express" e "cors"
+OBS: 
+Se ao rodar o comando "npm run dev" der erro vamos forçar o windows a reconhecer o comando usando outra forma de rodar
+"npx ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+
+
+==========================================================================
+RESUMO TÉCNICO: ESTRUTURAÇÃO DO BACKEND
+==========================================================================
+
+1. AMBIENTE E LINGUAGEM:
+   - Inicialização do ambiente Node.js.
+   - Configuração do TypeScript (tsconfig.json) com suporte a ESNext e Decorators.
+
+2. INFRAESTRUTURA DE SOFTWARE (DEPENDÊNCIAS):
+   - Express (Framework Web).
+   - CORS (Segurança/Comunicação entre Front e Back).
+   - TypeORM & Reflect-metadata (Mapeamento de Banco de Dados).
+
+3. FUNCIONALIDADES IMPLEMENTADAS:
+   - Criação do servidor base na porta 3333.
+   - Implementação de Middlewares para leitura de JSON.
+   - Criação de rota de verificação (Health Check) em /status.
+
+4. VERSIONAMENTO:
+   - Commit realizado com histórico detalhado das implementações.
+==========================================================================

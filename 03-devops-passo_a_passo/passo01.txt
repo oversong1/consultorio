@@ -1,0 +1,14 @@
+
+Vamos criar uma forma de subir a aplicação com docker compose de uma vez
+
+Inicialmente vamos criar um seeder para gerar um usuario no banco com o arquivo "rc/database/seeds/CreateAdmin.ts"
+com acesso:
+Email: admin@med.com.br
+Senha: admin123
+
+Agora vamos ajustar o nosso "package.json"
+("seed:admin": "ts-node src/database/seeds/CreateAdmin.ts")
+
+OBS:
+rodar esse script usando ts-node, certifique-se de que o arquivo foi criado exatamente no caminho: "src/database/seeds/CreateAdmin.ts"
+Com o seu banco de dados atual rodando, execute no terminal do backend: "npm run seed:admin"

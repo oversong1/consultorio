@@ -1,0 +1,33 @@
+
+
+Vamas trabalhar com o Service onde vamos colocar a regra de negocio
+
+Primeiro vamos criar a pasta "services" e o arquivo service "src/services/CreateDoctorService.ts"
+
+Depois vamos criar o controller desse service, "src/controllers/CreateDoctorController.ts"
+
+Agora vamos adicionar essa rota protegida em nosso "src/routes.ts"
+
+Agora no "PostMan" com uma aba de "POST" vamos inserir um novo medico.
+
+OBS:
+"
+Para validar se tudo ficou certo:
+
+Método: POST
+
+URL: http://localhost:3333/doctors
+
+Auth: Selecione Bearer Token e use o token de login que você já tem.
+
+Body (JSON):
+
+JSON
+
+{
+  "name": "Dr. House",
+  "crm": "123456-SP",
+  "email": "house@hospital.com",
+  "specialty": "Infectologia"
+}
+"

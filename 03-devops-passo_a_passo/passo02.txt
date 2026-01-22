@@ -1,0 +1,37 @@
+
+
+Agora Conteinerização (Docker)
+
+No backend vamos criar um arquivo "backend/Dockerfile" e configurar ele
+No frontend vamos criar um arquivo "frontend/Dockerfile" e configurar ele
+
+Vamos ajustar o "docker-compose.yml" da raiz do projeto para ele enxergar o front e o back e executrar ele
+
+Para o Docker funcionar, o host do banco no seu "src/database/data-source.ts" não pode mais ser localhost, pois dentro do Docker o banco se chama db.
+vamos trocar a linha (host: "localhost") por (host: process.env.DB_HOST || "localhost",)
+
+OBS: "Se o projeto estiver rodando para tanto o docker-ccompose-yml o node do Frontend e para o BackEnd"
+Agora vamos rodar o comando: "docker-compose up --build" NA RAIZ DO PROJETO ele devera rodar tudo certinho.
+
+
+==========================================================================
+DOCUMENTAÇÃO: INFRAESTRUTURA, DOCKERIZAÇÃO E ORQUESTRAÇÃO
+==========================================================================
+
+1. CONTEINERIZAÇÃO (DOCKER):
+- Criação de Dockerfiles otimizados para Front-end e Back-end utilizando Node.js 20.
+- Configuração do modo --host no Vite para permitir acesso externo ao container.
+- Implementação de imagens leves (Redis Alpine) para otimização de recursos.
+
+2. ORQUESTRAÇÃO COM DOCKER COMPOSE:
+- Configuração de rede interna para comunicação entre serviços (db, cache, backend, frontend).
+- Persistência de dados do MySQL utilizando volumes gerenciados.
+- Definição de variáveis de ambiente para conexão dinâmica com o banco de dados.
+
+3. AUTOMAÇÃO DE INICIALIZAÇÃO:
+- Implementação de pipeline de inicialização no Backend:
+  - Execução automática de Migrations (TypeORM) para garantir integridade do esquema.
+  - Execução de Seeding automático para criação de usuário administrador inicial.
+- Gerenciamento de dependências através do "depends_on" para garantir ordem de subida.
+
+==========================================================================

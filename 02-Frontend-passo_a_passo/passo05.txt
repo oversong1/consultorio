@@ -1,0 +1,34 @@
+
+Ja estamos listando nossos agendamentos vamos trabalhar na criação dele pelo front
+
+Inicialmente vamos ter que atualizar o "src/pages/Dashboard.tsx" dentro dele com o modal.
+
+Agora vamos colocar a logica do crud vamos criar o arquivo "src/services/appointments.ts" dessa forma centralizamos as chamadas da api.
+
+Após isso vamos criar o arquivo "src/hooks/useAppointments.ts" sera nosso estado de hook para os erros.
+
+
+FOI PRECISO AJUSTAR UMA COISAS QUE EU ESQUECI fazer o Put da rotade appointments.
+
+
+==========================================================================
+DOCUMENTAÇÃO: CRUD COMPLETO DE AGENDAMENTOS E CORREÇÃO DE ROTAS
+==========================================================================
+
+1. MAPEAMENTO E PERSISTÊNCIA (BACKEND):
+- Implementação do método Update no AppointmentService usando TypeORM.
+- Validação de segurança: Edição permitida apenas para o dono do registro.
+- Registro da rota PUT /appointments/:id no Express.
+- Garantia de integridade referencial: Validação do exam_id antes da atualização.
+
+2. SINCRONIZAÇÃO FRONT-END:
+- Ajuste do hook saveAppointment para lidar com fluxos de POST e PUT.
+- Correção da URL de serviço para incluir o ID dinâmico no método PUT.
+- Tipagem rigorosa de erros no catch (unknown) para conformidade com ESLint.
+- Sincronismo de dados: Recarregamento automático da lista após salvar/editar.
+
+3. ESTILO E UX:
+- Tratamento de estados no formulário para alternar entre "Novo Agendamento" e "Editar".
+- Limpeza de estados e fechamento automático de modais após sucesso na API.
+- Logs de depuração implementados para monitoramento de fluxo de dados.
+==========================================================================

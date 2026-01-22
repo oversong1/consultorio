@@ -1,0 +1,34 @@
+
+
+Agora vamos começar a criar nossas tabelas usando o "Entity" ja que estamos usando o TypeORM
+Agora dentro do Dentro de "backend/src" vamos criar uma pasta "entities" e um novo arquivo chamado "User.ts" que sera criara nossa tabela.
+Vamos criar o script da "Entity" que ela transforma em tabela no banco.
+Depois vamos voltar no arquivo "src/database/data-source.ts" para importar a classe User que acabamos de criar, 
+talvez seja preciso para o node e rodar novamente para a criação funcionar.
+Para ver a tablea 'users' criada podemos rodar o comando:(docker exec -it med_schedule_db mysql -u root -p -e "USE med_schedule; SHOW TABLES;")
+
+
+
+==========================================================================
+RESUMO DAS ACOES REALIZADAS - BACKEND
+==========================================================================
+
+1. BANCO DE DADOS:
+- Docker rodando MySQL e Redis.
+- Usuario: root / Senha: root.
+- Banco de dados 'med_schedule' criado e conectado.
+
+2. CODIGO E ESTRUTURA:
+- TypeORM inicializado dentro da pasta 'src/database'.
+- Entidade 'User' criada dentro de 'src/database/entities'.
+- Pasta 'entities' ajustada para o caminho correto para evitar erros de import.
+
+3. CORRECOES TECNICAS:
+- Adicionado operador '!' em User.ts para resolver erro de inicializacao do TS.
+- Sincronizacao automatica ligada para gerar a tabela 'users' no MySQL.
+
+4. STATUS ATUAL:
+- O servidor rodou as queries de criacao de tabela sem erros.
+- O progresso foi salvo no Git com um commit de 'feat'.
+
+==========================================================================

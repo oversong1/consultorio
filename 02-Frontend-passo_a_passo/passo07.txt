@@ -1,0 +1,25 @@
+
+
+Ajustes de Melhoria no "src/pages/Dashboard.tsx"
+
+"Barra agendar dois exames para o mesmo dia e horário exato."
+"Criar uma distinção visual (ex: uma tag "Concluído" ou deixar a linha levemente cinza) para exames cuja data/hora já passou do momento atual."
+
+==========================================================================
+DOCUMENTAÇÃO: REGRAS DE NEGÓCIO, SEGURANÇA E FEEDBACK VISUAL (UX)
+==========================================================================
+
+1. SEGURANÇA E INTEGRIDADE:
+- Implementação de Confirmação de Exclusão (window.confirm) para evitar perda acidental de dados.
+- Bloqueio de Edição para agendamentos retroativos, garantindo a integridade do histórico médico.
+
+2. REGRA DE NEGÓCIO (PREVENÇÃO DE CONFLITOS):
+- Implementação de validação de disponibilidade de horário no Front-end.
+- Verificação via .some() para impedir agendamentos duplicados no mesmo Timestamp.
+- Lógica de bypass inteligente para permitir salvamento no mesmo horário durante a edição do próprio registro.
+
+3. INTERFACE E UX (ESTADOS DINÂMICOS):
+- Diferenciação visual de status (Concluído vs. Agendado) baseada em tempo real.
+- Aplicação de tratamento de opacidade e cores (Gray-scale) para registros passados.
+- Alteração contextual de labels: "Cancelar" para agendamentos futuros e "Remover Histórico" para passados.
+==========================================================================

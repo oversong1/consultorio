@@ -1,0 +1,32 @@
+
+Vamos trabalhar com nosso repositório para salvar nossa informações
+
+Primeiro vamos criar uma pasta "repositories" e criar um arquivo "UserRepository.ts"
+Ajustar o arquivo "UserRepository.ts"
+
+Segundo vamos criar uma pasta "controllers" e criar um arquivo "UserController.ts"
+Ajustar o arquivo "UserController.ts"
+
+Terceiro criar um arquivo "src/routes.ts"
+Ajustar o arquivo "routes.ts"
+
+Agora que ja temos tanto o controller a "routes.ts" no "serve.ts", assim ele pode ver as rotas criadas com mais segurança
+
+==========================================================================
+RESUMO DAS ACOES REALIZADAS - FLUXO DE USUARIO
+==========================================================================
+
+1. ARQUITETURA:
+- Implementado o padrao Repository/Controller.
+- Isolamento das rotas do arquivo principal (server.ts) para o routes.ts.
+
+2. FUNCIONALIDADES:
+- Rota POST /users criada e funcional.
+- Verificacao de duplicidade de e-mail (evita cadastros repetidos).
+- Persistencia de dados confirmada no MySQL (Docker).
+
+3. TESTES:
+- Validado via Postman com retorno 201 Created.
+- Verificacao direta no banco via comando 'docker exec' confirmada.
+
+==========================================================================

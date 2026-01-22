@@ -1,0 +1,41 @@
+
+Vamos implementar segurança com o "bcryptjs" 
+Instalação na raiz
+npm install bcryptjs
+npm install -D @types/bcryptjs
+
+Ajustar o Controller "UserController.ts", vamos importar o hash e colocar antes o hash antes de salvar ele no banco
+Depois vamos testar pelo Postman, depois para ver se no banco foi salvo com hash
+comando (docker exec -it med_schedule_db mysql -u root -p -e "USE med_schedule; SELECT * FROM users;)
+
+
+Agora vamos colocar o JWT para ter o token, vamos instalar o JWT e vamos criar um aruivo Auth no controller.
+Instalação na raiz
+npm install jsonwebtoken
+npm install -D @types/jsonwebtoken
+
+Criação do Auth "src/controllers/AuthController.ts"
+
+==========================================================================
+RESUMO DAS ACOES REALIZADAS - SEGURANCA E AUTENTICACAO
+==========================================================================
+
+1. PROTECAO DE DADOS:
+- Instalado e configurado o bcryptjs.
+- Senhas agora sao armazenadas como HASH no MySQL.
+- Validado que senhas antigas (texto puro) nao permitem login.
+
+2. AUTENTICACAO JWT:
+- Instalado o jsonwebtoken.
+- Criado AuthController para gerenciar o login.
+- Token gerado com ID do usuario e validade de 24 horas.
+
+3. CORRECOES DE CODIGO:
+- Resolvido erro de tipagem (string | undefined) no AuthController.
+- Configurada rota POST /login no routes.ts.
+
+4. TESTE DE SUCESSO:
+- Login efetuado via Postman (Body raw JSON).
+- Retorno de objeto 'user' e string 'token' confirmado.
+
+==========================================================================

@@ -1,0 +1,27 @@
+
+
+Rodar composer para rodar os serviços
+
+Na "raiz do projeto" vamos rodar o composer 
+OBS:"Com o docker aberto"
+comando : "docker compose up -d"
+Após rodar o comando, você pode verificar o status com: "docker ps"
+Para startar o projetoquando ele estiver parado rode o comando "docker compose start" ou starte ele pelo Docker Desktop
+
+
+Configurar a Conexão usando o TypeORM.
+Vamos entrar na pasta "backend" novamente e criar uma pasta chamada "database" com um arquivo "data-source.ts"
+Criar o codigo de conexão com o banco de dados mysql, senha e usuario estão como root.
+
+Entrar no ./backend/src/server.ts e adicionar um Datasource
+
+
+
+==========================================================================
+STATUS DO PROJETO: INFRAESTRUTURA CONCLUÍDA
+==========================================================================
+[OK] Servidor Express (Porta 3333)
+[OK] Containers Docker (MySQL/Redis)
+[OK] Driver de Conexão (TypeORM Data Source)
+[OK] Handshake com Banco de Dados (SELECT version() executado)
+==========================================================================

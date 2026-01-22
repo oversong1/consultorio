@@ -1,0 +1,46 @@
+
+Bom ja colocamos  o Auth e o JWT, ambos tratam de alguns pontos de segurança com com a incritação da senha ou no login.
+Agora vamos colocar o "Middleware" que vai vai ter o papel de ter a segurança das rotas se o token não for Validado
+a requisição não chega nos controllers.
+
+
+Vamos entrar na pasta src e criar uma pasta chamada "middlewares" e dentro dele um arquivo "authMiddleware.ts"
+
+Aqui temos um ponto a vamos criar um arquivo "src/@types/express.d.ts" e porque isso ?
+Esse arquivo vai ajudar a fazer com que o "EXPRESS" saiba que o "userId" aceite novas propriedades
+
+Agora vamos voltar la nas rotas "routes.ts" e colocar a rota protegida com Auth e tambem fazer o import.
+
+Por fim testar se a rota no "PostMan" esta validando o token e pegando o ID do cleinte.
+
+Gere um Token novo: Vá na sua aba de Login, clique em Send e copie o código que aparece dentro de "token".
+"
+Crie uma nova aba (GET):
+Método: GET
+URL: http://localhost:3333/profile
+Configure a Autenticação:
+Clique na aba Authorization.
+No campo Type, selecione Bearer Token.
+No campo Token (à direita), cole o código que você copiou do login.
+Envie
+"
+
+
+
+==========================================================================
+RESUMO DAS ACOES REALIZADAS - MIDDLEWARE E TIPAGEM
+==========================================================================
+
+1. SEGURANCA DE ROTA:
+- Criado authMiddleware.ts para validar o Bearer Token.
+- O middleware bloqueia acessos sem token ou com tokens invalidos (401).
+
+2. TYPESCRIPT:
+- Criada pasta @types e arquivo express.d.ts.
+- Realizado o 'Module Augmentation' para permitir req.userId em todo o projeto.
+
+3. INTEGRACAO:
+- Rota /profile protegida com sucesso.
+- Confirmado recebimento do userId via Postman utilizando Bearer Token.
+
+==========================================================================

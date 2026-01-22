@@ -1,0 +1,94 @@
+
+Agora vamos ter uma parte bem sensivel ja que ao "Agendamento" vai envolver outras tabelas
+
+Criar a Entidade "src/database/entities/Appointment.ts", com um detalhe essa tabela vai ter uma relação,
+(ManyToOne) para indicar que muitos agendamentos podem pertencer a um usuário e muitos agendamentos podem ser do mesmo tipo de exame.
+
+Sempre depois de criar um entity vamos ter que passar ela no "src/database/data-source.ts"
+Atualização do arquivo "data-source.ts"
+import { Appointment } from "./entities/Appointment";
+entities: [User, Doctor, Exam, Appointment],
+
+Vamos criar o arquivo "src/services/AppointmentService.ts"
+vamos garantir que o agendamento seja salvo com o user_id de quem está logado (que pegaremos do token) e o exam_id do exame selecionado.
+
+E ainda vamos criar Controller "src/controllers/AppointmentController.ts"
+Ele terá um detalhe importante: ele vai extrair o id do usuário diretamente do req.user (que o authMiddleware injeta na requisição).
+O ponto chave aqui é que não pediremos o user_id no corpo da requisição (JSON), pois pegaremos essa informação diretamente do token de autenticação, 
+garantindo que um usuário não consiga agendar exames em nome de outro. 
+
+E por fim colcoar nas "src/routes.ts"
+
+
+OBS: Agora que ja temos as tabelas vamos rodar o comando para "Gerar as Migrations".
+"npx typeorm-ts-node-commonjs migration:generate src/database/migrations/CreateExamsAndAppointments -d src/database/data-source.ts"
+
+OBS: Depois de geradas as migrations vamos "Rodar as Migrations".
+"npx typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
+
+================================================================================================================================================
+
+1. Criar o Exame (Catálogo)
+Antes de agendar, você precisa de um exame disponível.
+
+Método: POST
+
+URL: http://localhost:3333/exams
+
+Headers: Authorization: Bearer SEU_TOKEN_AQUI
+
+Body (JSON):
+
+JSON
+
+{
+  "name": "Ressonância Magnética",
+  "specialty": "Radiologia"
+}
+IMPORTANTE: Ao enviar, o banco vai te devolver um JSON. Copie o valor do "id" que ele gerar (ex: a1b2c3d4...). Você vai precisar dele no próximo passo.
+No nosso exemplo gerou um id assim (fca820e2-ac08-44e6-b6db-7cfcc31f8f4a)
+
+2. Criar o Agendamento
+Agora vamos usar o ID do exame que você acabou de criar.
+
+Método: POST
+
+URL: http://localhost:3333/appointments
+
+Headers: Authorization: Bearer SEU_TOKEN_AQUI
+
+Body (JSON):
+
+JSON
+
+{
+  "appointment_date": "2026-02-15T10:00:00",
+  "exam_id": "COLE_O_ID_AQUI",
+  "observations": "Paciente deve estar em jejum de 8 horas."
+}
+
+
+
+
+
+==========================================================================
+RESUMO: FINALIZAÇÃO DO BACKEND E CORREÇÃO DE AGENDAMENTOS
+==========================================================================
+
+1. CORREÇÃO DE INFRAESTRUTURA:
+- Ajustado 'authMiddleware.ts' para injetar o objeto 'user: { id }' 
+  corretamente no objeto Request do Express.
+- Resolvido o erro de 'undefined' no AppointmentController que impedia 
+  a leitura do ID do usuário logado.
+
+2. SINCRONIZAÇÃO DE BANCO DE DATAS:
+- Gerada e executada migration 'CreateExamsAndAppointments'.
+- Tabelas 'exams' e 'appointments' criadas com chaves estrangeiras 
+  e índices de integridade.
+
+3. VALIDAÇÃO FUNCIONAL:
+- Teste de criação de Exame (Catálogo) realizado com sucesso.
+- Teste de Agendamento vinculado ao Usuário e Exame realizado com sucesso.
+- Fluxo de autenticação via Bearer Token validado em rotas protegidas.
+
+==========================================================================
