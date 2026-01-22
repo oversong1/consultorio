@@ -7,19 +7,14 @@ import { Appointment } from "./entities/Appointment";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    // host: "localhost",
     host: process.env.DB_HOST || "localhost",
-    port: 3306,
-    username: "root",
-    password: "root", 
-    database: "med_schedule",
-    synchronize: false, // Recomendado usar false quando se usa migrations
+    port: Number(process.env.DB_PORT) || 3306,
+    username: process.env.MYSQLUSER || "root",     // Mudamos aqui
+    password: process.env.MYSQLPASSWORD || "root", // Mudamos aqui
+    database: process.env.MYSQLDATABASE || "med_schedule", // Mudamos aqui
+    synchronize: true, // No primeiro deploy, mude para true para ele criar as tabelas sozinho
     logging: true,
     entities: [User, Doctor, Exam, Appointment],
-    /**
-     * Adicionamos o caminho para encontrar todos os arquivos .ts 
-     * dentro da pasta migrations.
-     */
     migrations: ["./src/database/migrations/*.ts"],
     subscribers: [],
 });
