@@ -7,7 +7,7 @@ import { Appointment } from "./entities/Appointment";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
-    host: process.env.MYSQLHOST || "localhost",
+    host: process.env.MYSQLHOST || process.env.DB_HOST || "localhost",
     port: Number(process.env.MYSQLPORT) || 3306,
     username: process.env.MYSQLUSER || "root",
     password: process.env.MYSQLPASSWORD || "root",
